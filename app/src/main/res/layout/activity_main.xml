@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_bgwelpage"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView_id"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.romainpiel.shimmer.ShimmerTextView
+        android:id="@+id/shimmer_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageView_id"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:text="WELCOME\nTo\nSmartRegistration"
+        android:textColor="#444"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linone"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/shimmer_tv"
+        android:layout_marginTop="220dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"></Space>
+
+        <Button
+            android:id="@+id/btn_signup"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bgbtnonfocustwo"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="   Sign up   "
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="26sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"></Space>
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bgbtnonfocustwo"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="   Log in   "
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:textSize="26sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"></Space>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lintwo"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/linone"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1.12"></Space>
+
+        <com.romainpiel.shimmer.ShimmerTextView
+            android:id="@+id/txt_signup"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Don't have account?"
+            android:textColor="#123"
+            android:textSize="15sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1.12"></Space>
+
+        <com.romainpiel.shimmer.ShimmerTextView
+            android:id="@+id/txt_login"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="Already have account?"
+            android:textColor="#123"
+            android:textSize="15sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"></Space>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_below="@+id/lintwo"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="Developed By\nMd. Ahasan Habib"
+        android:textColor="#123" />
+</RelativeLayout>
