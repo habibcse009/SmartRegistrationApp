@@ -6,4 +6,3 @@ It's a smart design signup, login, connect mysql database, add contact, view & d
 
 
 <img src="https://github.com/habibcse009/SmartRegistrationApp/blob/master/smartregistrationwelcome.jpg" width="440" height="800">
-![alt text](https://github.com/habibcse009/SmartRegistrationApp/blob/master/smartregistrationwelcome.jpg "THis is welcome activity")
