@@ -3,5 +3,5 @@ It's a smart design signup, login, connect mysql database, add contact, view & d
 
 
 ##Welcome page view
-![Welcome page of this app]
-(https://github.com/habibcse009/SmartRegistrationApp/blob/master/smartregistrationwelcome.jpg "Welcome Activity")
+
+![alt text](https://github.com/habibcse009/SmartRegistrationApp/blob/master/smartregistrationwelcome.jpg)
