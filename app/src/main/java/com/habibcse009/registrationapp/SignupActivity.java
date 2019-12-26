@@ -14,15 +14,30 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
+import es.dmoral.toasty.Toasty;
 
 public class SignupActivity extends AppCompatActivity {
     ShimmerTextView txtgotologin, txtsubtitlecreateacc;
@@ -162,7 +177,7 @@ public class SignupActivity extends AppCompatActivity {
                         txtSubArea.setText("Select Sub Area");
                         //call method for district
                         list.clear();
-                        //            i comment tis                      getDistrict(div);
+                        getDistrict(div);
 
                         //for better ui response
                         //sleep(500);
@@ -193,7 +208,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-       /* txtSubArea.setOnClickListener(new View.OnClickListener() {
+        txtSubArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -215,7 +230,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
             }
-        });*/
+        });
 
         // blood group
         etxtBloodGroup.setOnClickListener(new View.OnClickListener() {
@@ -304,5 +319,212 @@ public class SignupActivity extends AppCompatActivity {
         shimmer = new Shimmer();
         shimmer.start(txtgotologin);
         shimmer.start(txtsubtitlecreateacc);
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                signup();
+            }
+        });
+    }
+
+    private void signup() {
+
+        String getGender = "";
+        if (rbMale.isChecked())
+        {
+            getGender="male";
+        }
+
+        else if (rbFemale.isChecked())
+        {
+            getGender="female";
+
+        }
+        //Getting values from edit texts
+        //String gender="";
+        final String gender = getGender;
+        final String name = etxtName.getText().toString().trim();
+        final String mobile = etxtMobile.getText().toString().trim();
+        final String division = etxtDivision.getText().toString().trim();
+        final String password = etxtPassword.getText().toString().trim();
+        final String blood_group=etxtBloodGroup.getText().toString().trim();
+        final String sub_area=txtSubArea.getText().toString().trim();
+
+
+        //Checking  field/validation
+        if (name.isEmpty()) {
+            etxtName.setError("Please enter your name !");
+            etxtName.requestFocus();
+        }
+
+
+        //Checking username field/validation
+        else if (mobile.length()!=11 || mobile.contains(" ") || mobile.charAt(0)!='0'
+                ||mobile.charAt(1)!='1' ) {
+            etxtMobile.setError("Please enter correct cell !");
+            etxtMobile.requestFocus();
+        }
+
+        //Checking username field/validation
+        else  if (division.isEmpty()) {
+            etxtDivision.setError("Please enter your division!");
+            etxtDivision.requestFocus();
+        }
+
+        else  if (sub_area.isEmpty()) {
+            etxtDivision.setError("Please enter your area!");
+            etxtDivision.requestFocus();
+        }
+
+
+        //Checking password field/validation
+        else if (password.length() < 4) {
+            etxtPassword.setError("Password at least 4 character long !");
+            etxtPassword.requestFocus();
+
+        }
+
+        else if (!rbMale.isChecked() && !rbFemale.isChecked())
+        {
+            Toast.makeText(this, "Select Gender", Toast.LENGTH_SHORT).show();
+
+        }
+
+
+
+
+
+
+        else {
+            //showing progress dialog
+
+            loading = new ProgressDialog(this);
+            loading.setMessage("Please wait....");
+            loading.show();
+
+            //Creating a string request
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.ADMIN_SIGNUP_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+
+
+                            //for logcat
+                            Log.d("RESPONSE", response);
+
+
+                            //If we are getting success from server
+                            if (response.equalsIgnoreCase(Constant.SIGNUP_SUCCESS)) {
+
+
+                                loading.dismiss();
+                                //Starting profile activity
+                                Intent intent = new Intent(SignupActivity.this,LoginActivity.class);
+                                Toasty.success(SignupActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                startActivity(intent);
+
+                            } else if (response.equalsIgnoreCase(Constant.USER_EXISTS)) {
+
+                                Toasty.error(SignupActivity.this, "User Already exists!", Toast.LENGTH_SHORT).show();
+                                loading.dismiss();
+
+                            }
+
+                        }
+                    },
+
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            //You can handle error here if you want
+
+                            Toasty.error(SignupActivity.this, "Error in connection!", Toast.LENGTH_LONG).show();
+                            loading.dismiss();
+                        }
+                    }) {
+
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    //Adding parameters to request
+
+                    params.put(Constant.KEY_NAME, name);
+                    params.put(Constant.KEY_CELL, mobile);
+                    params.put(Constant.KEY_GENDER, gender);
+                    params.put(Constant.KEY_LOCATION, division);
+                    params.put(Constant.KEY_SUB_AREA, sub_area);
+                    params.put(Constant.KEY_PASSWORD, password);
+                    params.put(Constant.KEY_BLOOD_GROUP, blood_group);
+
+                    //returning parameter
+                    return params;
+                }
+            };
+
+
+            //Adding the string request to the queue
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+
+
+        }
+    }
+
+
+
+    private void getDistrict(String district) {
+
+        final ProgressDialog loading;
+        loading=new ProgressDialog(this);
+        loading.setMessage("Loading...Please wait...");
+        loading.show();
+
+        String url = Constant.GET_AREA_URL+ district;  // url for connecting php file
+
+        Log.d("URL",url);
+
+        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                //showJSON(response);
+                Log.d("response",response);
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray result = jsonObject.getJSONArray(Constant.JSON_ARRAY);
+
+
+                    for (int i = 0; i < result.length(); i++) {
+
+                        JSONObject jo = result.getJSONObject(i);
+                        String sub_area = jo.getString(Constant.KEY_SUB_AREA);
+                        list.add(sub_area);
+
+                    }
+
+                    loading.dismiss();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Log.d("Volley Error","Error:"+error);
+
+                    }
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(SignupActivity.this);
+        requestQueue.add(stringRequest);
+
     }
 }
+
