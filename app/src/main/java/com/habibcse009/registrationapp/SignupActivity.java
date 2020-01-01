@@ -404,6 +404,7 @@ public class SignupActivity extends AppCompatActivity {
             loading.setMessage("Please wait....");
             loading.show();
 
+            Log.d("URL",Constant.ADMIN_SIGNUP_URL);
             //Creating a string request
             StringRequest stringRequest = new StringRequest(Request.Method.POST, Constant.ADMIN_SIGNUP_URL,
                     new Response.Listener<String>() {
@@ -411,12 +412,13 @@ public class SignupActivity extends AppCompatActivity {
                         public void onResponse(String response) {
 
 
+                            String myResponse=response.trim();
                             //for logcat
                             Log.d("RESPONSE", response);
 
 
                             //If we are getting success from server
-                            if (response.equalsIgnoreCase(Constant.SIGNUP_SUCCESS)) {
+                            if (myResponse.equalsIgnoreCase(Constant.SIGNUP_SUCCESS)) {
 
 
                                 loading.dismiss();
@@ -425,7 +427,7 @@ public class SignupActivity extends AppCompatActivity {
                                 Toasty.success(SignupActivity.this, "Sign up successful", Toast.LENGTH_SHORT).show();
                                 startActivity(intent);
 
-                            } else if (response.equalsIgnoreCase(Constant.USER_EXISTS)) {
+                            } else if (myResponse.equalsIgnoreCase(Constant.USER_EXISTS)) {
 
                                 Toasty.error(SignupActivity.this, "User Already exists!", Toast.LENGTH_SHORT).show();
                                 loading.dismiss();
@@ -454,7 +456,7 @@ public class SignupActivity extends AppCompatActivity {
                     params.put(Constant.KEY_CELL, mobile);
                     params.put(Constant.KEY_GENDER, gender);
                     params.put(Constant.KEY_LOCATION, division);
-                    params.put(Constant.KEY_SUB_AREA, sub_area);
+                    //params.put(Constant.KEY_SUB_AREA, sub_area);
                     params.put(Constant.KEY_PASSWORD, password);
                     params.put(Constant.KEY_BLOOD_GROUP, blood_group);
 
