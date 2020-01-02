@@ -49,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioButton rbMale;
     private RadioButton rbFemale;
-    MaterialSpinner txtSubArea;
+   // MaterialSpinner txtSubArea;
     LinearLayout layout;
     String division;
     List<String> list = new ArrayList<>();
@@ -61,7 +61,7 @@ public class SignupActivity extends AppCompatActivity {
 
         txtgotologin = (ShimmerTextView) findViewById(R.id.txtgotologin);
         txtsubtitlecreateacc = (ShimmerTextView) findViewById(R.id.sinup_subtitle_header);
-        txtSubArea = findViewById(R.id.sinup_txt_area_signup2);
+       // txtSubArea = findViewById(R.id.sinup_txt_area_signup2);
 
         subtitle_header = findViewById(R.id.sinup_subtitle_header);
         txtregistration = findViewById(R.id.sinup_textView2);
@@ -173,7 +173,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-                        String div=etxtDivision.getText().toString();
+                       /* String div=etxtDivision.getText().toString();
                         txtSubArea.setText("Select Sub Area");
                         //call method for district
                         list.clear();
@@ -182,7 +182,7 @@ public class SignupActivity extends AppCompatActivity {
                         //for better ui response
                         //sleep(500);
                         Log.d("CALL","GET District");
-                        // layoutDistrict.setVisibility(View.VISIBLE);
+                        // layoutDistrict.setVisibility(View.VISIBLE);*/
 
                     }
                 });
@@ -208,7 +208,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
-        txtSubArea.setOnClickListener(new View.OnClickListener() {
+        /*txtSubArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -230,7 +230,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
             }
-        });
+        });*/
 
         // blood group
         etxtBloodGroup.setOnClickListener(new View.OnClickListener() {
@@ -350,7 +350,7 @@ public class SignupActivity extends AppCompatActivity {
         final String division = etxtDivision.getText().toString().trim();
         final String password = etxtPassword.getText().toString().trim();
         final String blood_group=etxtBloodGroup.getText().toString().trim();
-        final String sub_area=txtSubArea.getText().toString().trim();
+       // final String sub_area=txtSubArea.getText().toString().trim();
 
 
         //Checking  field/validation
@@ -373,10 +373,10 @@ public class SignupActivity extends AppCompatActivity {
             etxtDivision.requestFocus();
         }
 
-        else  if (sub_area.isEmpty()) {
+       /* else  if (sub_area.isEmpty()) {
             etxtDivision.setError("Please enter your area!");
             etxtDivision.requestFocus();
-        }
+        }*/
 
 
         //Checking password field/validation

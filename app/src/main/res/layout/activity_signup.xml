@@ -140,24 +140,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sinup_txt_mobile_signup" />
 
 
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:id="@+id/sinup_txt_area_signup2"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:background="#123"
-        android:focusable="false"
-        android:hint="Select District"
-        android:inputType="text"
-        android:textSize="18sp"
-        android:textColorHint="#123"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sinup_txt_area_signup"
-        app:ms_dropdown_height="wrap_content" />
+
 
     <EditText
         android:id="@+id/sinup_txt_bloodgroup_signup"
@@ -178,7 +161,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sinup_txt_area_signup2" />
+        app:layout_constraintTop_toBottomOf="@+id/sinup_txt_area_signup" />
 
     <LinearLayout
         android:id="@+id/sinup_radiogrplayout"
